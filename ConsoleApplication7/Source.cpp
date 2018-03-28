@@ -3,6 +3,7 @@
 #include <time.h>
 #include <locale>
 #include <iostream>
+using namespace std;
 
 struct fulName
 {
@@ -19,7 +20,8 @@ struct Student
 };
 
 void generationStudent(Student student);
-void
+void sort(Student student[]);
+
 void main()
 {
 	Student student[10];
@@ -31,7 +33,15 @@ void main()
 	{
 		printf("%d - %c\n", i, i);
 	}*/
-	for(int)
+	sort(student);
+	for (int i = 0; i < 10; i++)
+	{
+		printf("#%d \t%s %s %s\t %d",
+			i, student[i].Name.fname,
+			student[i].Name.sname,
+			student[i].Name.mname,
+			student[i].priznak);
+	}
 
 }
 
@@ -52,7 +62,13 @@ void generationStudent(Student student)
 	}
 	student.priznak = (min + 1) / 2;
 }		//https://github.com/YevgeniyGertsen/Eldar_task
-
+void sort(Student student[10])
+{
+	for (int i = 0; i < 10; i++)
+		for (int j = i; j > 0; j--)
+			if (student[j].priznak < student[j + 1].priznak)
+				swap(student[j], student[j + 1]);
+}
 /*ƒл€ каждого студента получить одно из следующих значений 
 признака : 5 Ц отличник(только 9 и(или) 10), 
 4 Ц хорошист(нет оценок, меньше 6, но не все 9 или 10, 
