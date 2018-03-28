@@ -19,15 +19,18 @@ struct Student
 	int priznak;
 };
 
-void generationStudent(Student student);
+void generationStudent(Student* student);
 void sort(Student student[]);
 
 void main()
 {
+	srand(time(NULL));
+	rand();
+
 	Student student[10];
 
 	for (int i = 0; i < 10; i++)
-		generationStudent(student[i]);
+		generationStudent(&student[i]);
 
 	/*for (int i = 0; i < 255; i++)
 	{
@@ -36,7 +39,7 @@ void main()
 	sort(student);
 	for (int i = 0; i < 10; i++)
 	{
-		printf("#%d \t%s %s %s\t %d",
+		printf("#%d \t%s %s %s\t %d\n",
 			i, student[i].Name.fname,
 			student[i].Name.sname,
 			student[i].Name.mname,
@@ -45,29 +48,33 @@ void main()
 
 }
 
-void generationStudent(Student student)
+void generationStudent(Student* student)
 {
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 14; i++)
 	{
-		student.Name.fname[i] = 97 + rand() % 25;
-		student.Name.sname[i] = 192 + rand() % 25;
-		student.Name.mname[i] = 192 + rand() % 25;
-		student.usp[i] = 0 + rand() % 10;
+		student->Name.fname[i] = 97 + rand() % 25;
+		student->Name.sname[i] = 97 + rand() % 25;
+		student->Name.mname[i] = 97 + rand() % 25;
+		student->usp[i] = 0 + rand() % 10;
 	}
+	student->Name.fname[14] = '\0';
+	student->Name.sname[14] = '\0';
+	student->Name.mname[14] = '\0';
 	int min = 10;
 	for (int i = 0; i < 15; i++)
 	{
-		if (min < student.usp[i])
-			min = student.usp[i];
+		if (min < student->usp[i])
+			min = student->usp[i];
 	}
-	student.priznak = (min + 1) / 2;
+	student->priznak = (min + 1) / 2;
 }		//https://github.com/YevgeniyGertsen/Eldar_task
-void sort(Student student[10])
+
+void sort(Student student[])
 {
 	for (int i = 0; i < 10; i++)
 		for (int j = i; j > 0; j--)
-			if (student[j].priznak < student[j + 1].priznak)
-				swap(student[j], student[j + 1]);
+			if (student[j].priznak < student[j - 1].priznak)
+				swap(student[j], student[j - 1]);
 }
 /*Для каждого студента получить одно из следующих значений 
 признака : 5 – отличник(только 9 и(или) 10), 
